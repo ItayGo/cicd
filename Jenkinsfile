@@ -21,7 +21,6 @@ pipeline {
                     sh "docker build -t itaygo/cicd-app:latest ."
                 }
             }
-        }
      stage('Push Docker Image') {
             steps {
                 script {
