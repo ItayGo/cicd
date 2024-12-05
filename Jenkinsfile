@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image..."
-                    sh "docker build -t itaygo/cicd-app:latest ."
+                    sh "docker build -t itaygo/myapp:1.0 ."
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
                     echo "Logging in to Docker Hub..."
                     sh """
                     echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin
-                    docker push itaygo/cicd-app:latest
+                    docker push itaygo/myapp:1.0
                     """
                 }
             }
