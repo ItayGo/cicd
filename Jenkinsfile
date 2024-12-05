@@ -4,7 +4,7 @@ pipeline {
         DOCKER_CREDENTIALS = credentials('docker-hub-credentials')
     }
     triggers {
-    githubPush()
+        githubPush()
     }
     stages {
         stage('Clone Repository') {
@@ -12,8 +12,6 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ItayGo/cicd.git', credentialsId: 'github-credentials'
             }
         }
-
-    stages {
         stage('Build Docker Image') {
             steps {
                 script {
@@ -21,7 +19,8 @@ pipeline {
                     sh "docker build -t itaygo/cicd-app:latest ."
                 }
             }
-     stage('Push Docker Image') {
+        }
+        stage('Push Docker Image') {
             steps {
                 script {
                     echo "Logging in to Docker Hub..."
