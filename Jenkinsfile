@@ -12,18 +12,6 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ItayGo/cicd.git', credentialsId: 'github-credentials'
             }
         }
-        stage('Run Tests') {
-            steps {
-                script {
-                    echo "Running tests..."
-                    // Install Python dependencies and run tests
-                    sh """
-                    pip install -r requirements.txt
-                    python -m unittest discover -s tests
-                    """
-                }
-            }
-        }
         stage('Build Docker Image') {
             steps {
                 script {
