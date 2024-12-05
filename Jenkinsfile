@@ -12,6 +12,16 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ItayGo/cicd.git', credentialsId: 'github-credentials'
             }
         }
+
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    echo "Building Docker image..."
+                    sh "docker build -t itaygo/cicd-app:latest ."
+                }
+            }
+        }
      stage('Push Docker Image') {
             steps {
                 script {
