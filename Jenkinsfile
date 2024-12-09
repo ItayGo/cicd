@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Check out') {
             steps {
-               checkout scm 
+               checkout scm
             }
         }
         stage('Build Docker Image') {
@@ -31,6 +31,13 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh '''
+                # Apply the Kubernetes YAML file
+                kubectl apply -f deployment.yaml
+                '''
+            }
+        }
     }
 }
-
