@@ -7,9 +7,9 @@ pipeline {
         githubPush()
     }
     stages {
-        stage('Clone Repository') {
+        stage('Check out') {
             steps {
-                git branch: 'main', url: 'https://github.com/ItayGo/cicd.git', credentialsId: 'github-credentials'
+               checkout scm 
             }
         }
         stage('Build Docker Image') {
