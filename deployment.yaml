@@ -17,4 +17,4 @@ spec:
     spec:
       containers:
       - name: "myapp"
-        image: "itaygoren/myapp:1.0"
+        image: "itaygoren/myapp:BUILD_NUMBER_PLACEHOLDER"

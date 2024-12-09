@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image..."
-                    sh "docker build -t itaygoren/myapp:1.0 ."
+                    sh "docker build -t itaygoren/myapp:${env.BUILD_NUMBER} ."
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
                     echo "Logging in to Docker Hub..."
                     sh """
                     echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin
-                    docker push itaygoren/myapp:1.0
+                    docker push itaygoren/myapp:${env.BUILD_NUMBER}
                     """
                 }
             }
@@ -34,8 +34,8 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
-                # Apply the Kubernetes YAML file
-                kubectl apply -f deployment.yaml
+                sed -i 's/BUILD_NUMBER_PLACEHOLDER/'"${BUILD_NUMBER}"'/g' deployment.yaml
+		kubectl apply -f deployment.yaml
                 '''
             }
         }
