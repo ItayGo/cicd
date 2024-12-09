@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     echo "Running Docker image..."
-                    sh "docker run -d --name mytestapp -p 5000:5000 itaygoren/myapp:${BUILD_NUMBER}"
+                    sh "docker run -d --name mytestapp -p 5000:5000 itaygoren/myapp:${env.BUILD_NUMBER}"
                 }
             }
         }
@@ -40,8 +40,10 @@ pipeline {
             steps {
                 script {
                     echo "Killing the container..."
-                    sh "docker kill mytestapp"
-                    sh "docker rm mytestapp"
+                    sh """
+                    docker kill mytestapp
+                    docker rm mytestapp
+                    """
                 }
             }
         }
