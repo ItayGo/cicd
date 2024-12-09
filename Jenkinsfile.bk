@@ -20,6 +20,31 @@ pipeline {
                 }
             }
         }
+        stage('Run Docker Image') {
+            steps {
+                script {
+                    echo "Running Docker image..."
+                    sh "docker run -d --name mytestapp -p 5000:5000 itaygoren/myapp:${BUILD_NUMBER}"
+                }
+            }
+        }
+        stage('Testing the app') {
+            steps {
+                script {
+                    echo "Testing the application..."
+                    sh "curl http://localhost:5000"
+                }
+            }
+        }
+        stage('Kill the container') {
+            steps {
+                script {
+                    echo "Killing the container..."
+                    sh "docker kill mytestapp"
+                    sh "docker rm mytestapp"
+                }
+            }
+        }
         stage('Push Docker Image') {
             steps {
                 script {
@@ -35,9 +60,10 @@ pipeline {
             steps {
                 sh '''
                 sed -i 's/BUILD_NUMBER_PLACEHOLDER/'"${BUILD_NUMBER}"'/g' deployment.yaml
-		kubectl apply -f deployment.yaml
+                kubectl apply -f deployment.yaml
                 '''
             }
         }
     }
 }
+~
