@@ -47,18 +47,20 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    echo "Logging in to Docker Hub..."
-                    sh """
-                    echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin
-                    docker push itaygoren/myapp:${env.BUILD_NUMBER}
-                    """
-                }
+       stage('Push Docker Image') {
+    steps {
+        script {
+            echo "Logging in to Docker Hub..."
+            withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                sh '''
+                echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                docker push itaygoren/myapp:${BUILD_NUMBER}
+                '''
             }
         }
-        stage('Deploy to Kubernetes') {
+    }
+} 
+	stage('Deploy to Kubernetes') {
             steps {
                 sh '''
                 sed -i 's/BUILD_NUMBER_PLACEHOLDER/'"${BUILD_NUMBER}"'/g' deployment.yaml
