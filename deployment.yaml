@@ -18,17 +18,15 @@ spec:
       containers:
       - name: "myapp"
         image: "itaygoren/myapp:BUILD_NUMBER_PLACEHOLDER"
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-service
+  name: my-service  # Replace with your service name
+  namespace: default  # Replace with your namespace
 spec:
-  type: NodePort
-  ports:
-    - nodePort: 5000
-      port: 5000
-      targetPort: 5000
   selector:
-    app: deployment-1
+    app: deployment-1  # Replace with the label used by your deployment
+  ports:
+  - port: 5000  # The port the service exposes
+    targetPort: 5000  # The port your pods are listening on
