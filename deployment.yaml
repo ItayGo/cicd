@@ -18,3 +18,17 @@ spec:
       containers:
       - name: "myapp"
         image: "itaygoren/myapp:BUILD_NUMBER_PLACEHOLDER"
+
+---
+piVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  type: NodePort
+  ports:
+    - nodePort: 5000
+      port: 5000
+      targetPort: 5000
+  selector:
+    app: deployment-1
