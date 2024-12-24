@@ -76,7 +76,6 @@ pipeline {
             	   docker ps -aq | xargs -r docker rm || echo "No containers to remove."
             	   echo "Docker cleanup completed."
 	    	   """
-		   emailext()
         }
     }
 }
