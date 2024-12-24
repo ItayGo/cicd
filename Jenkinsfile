@@ -72,5 +72,16 @@ pipeline {
             }
         }
     }
+post {
+        success {
+            echo 'Pipeline succeeded.'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+        always {
+            echo 'This will always run at the end of the pipeline.'
+        }
+    }
 }
 
