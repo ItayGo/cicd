@@ -61,21 +61,22 @@ pipeline {
             }
         }
     }
-post {
-        success {
-            echo 'Pipeline succeeded.'
-        }
-        failure {
-            echo 'Pipeline failed.'
-        }
-        always {
-            echo "Clean up."
-	    sh """
-	    echo "Checking for running Docker containers..."
-            docker ps -q | xargs -r docker stop || echo "No running containers to stop."
-            docker ps -aq | xargs -r docker rm || echo "No containers to remove."
-            echo "Docker cleanup completed."
-	    """
+	post {
+        	success {
+            	   echo 'Pipeline succeeded.'
+        	}
+        	failure {
+            	   echo 'Pipeline failed.'
+        	}
+        	always {
+            	   echo "Clean up."
+	    	   sh """
+	    	   echo "Checking for running Docker containers..."
+            	   docker ps -q | xargs -r docker stop || echo "No running containers to stop."
+            	   docker ps -aq | xargs -r docker rm || echo "No containers to remove."
+            	   echo "Docker cleanup completed."
+	    	   """
+		   emailext()
         }
     }
 }
