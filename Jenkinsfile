@@ -39,17 +39,6 @@ pipeline {
                 }
             }
         }
-        stage('Kill the container') {
-            steps {
-                script {
-                    echo "Killing the container..."
-                    sh """
-                    docker kill mytestapp
-                    docker rm mytestapp
-                    """
-                }
-            }
-        }
        stage('Push Docker Image') {
     steps {
         script {
@@ -80,7 +69,13 @@ post {
             echo 'Pipeline failed.'
         }
         always {
-            echo 'This will always run at the end of the pipeline.'
+            echo "Clean up."
+	    sh """
+	    echo "Checking for running Docker containers..."
+            docker ps -q | xargs -r docker stop || echo "No running containers to stop."
+            docker ps -aq | xargs -r docker rm || echo "No containers to remove."
+            echo "Docker cleanup completed."
+	    """
         }
     }
 }
