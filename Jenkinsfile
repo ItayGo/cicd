@@ -32,7 +32,10 @@ pipeline {
             steps {
                 script {
                     echo "Testing the application..."
-                    sh "curl http://localhost:5000 | grep good"
+                    sh """
+		    sleep 2
+		    curl http://localhost:5000 | grep good
+		    """
                 }
             }
         }
