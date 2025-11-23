@@ -59,7 +59,7 @@ def home():
 <body>
     <div class="container">
         <img class="fortinet-logo" alt="Fortinet Logo Placeholder">
-        <h1>GOOD ENOUGH!!!!</h1>
+        <h1>good ENOUGH!!!!</h1>
     </div>
 </body>
 </html>
