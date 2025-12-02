@@ -4,9 +4,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    # Use f-strings for easier HTML construction in Python
-    # This HTML includes embedded CSS for styling.
-    html_content = f"""
+    # CHANGE: We are now using a regular triple-quoted string instead of an f-string (f"""...""")
+    # This prevents Python from attempting to parse the JavaScript keywords like 'const'.
+    html_content = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +16,7 @@ def home():
     
     <style>
         /* --- CSS STYLES --- */
+        /* Note: Braces are back to single { } because this is no longer an f-string */
         body {
             display: flex;
             flex-direction: column;
@@ -23,9 +24,9 @@ def home():
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #f4f7f6; /* Light gray-blue background */
+            background-color: #f4f7f6;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden; /* Hide potential overflow from animation */
+            overflow: hidden;
         }
 
         /* Fortinet Logo Container & Rotation Animation */
@@ -33,7 +34,7 @@ def home():
             width: 150px;
             height: 150px;
             margin-bottom: 20px;
-            animation: rotateLogo 10s linear infinite; /* Apply rotation */
+            animation: rotateLogo 10s linear infinite;
         }
 
         .logo-container img {
@@ -53,13 +54,13 @@ def home():
 
         /* Text Styling & Initial/Final State for Animation */
         #status-text {
-            font-size: 4em; /* Large text */
+            font-size: 4em;
             font-weight: bold;
-            color: #d90f1d; /* Fortinet-like red */
+            color: #d90f1d;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            opacity: 0; /* Start invisible */
-            transform: scale(0.8); /* Start slightly smaller */
-            transition: opacity 1s ease-out, transform 1s ease-out; /* Smooth transitions */
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 1s ease-out, transform 1s ease-out;
         }
 
         /* Class added by JavaScript to trigger the animation */
@@ -85,12 +86,8 @@ def home():
         function animateText() {
             const statusText = document.getElementById('status-text');
             
-            // Wait a moment (e.g., 500ms) before starting the animation 
-            // to ensure the logo is visible first and CSS transition works smoothly.
             setTimeout(() => {
                 statusText.classList.add('show-text');
-                
-                // Optional: Console log to confirm JS is running
                 console.log('Text animation triggered. CI/CD Pipeline successful.');
             }, 500); 
         }
@@ -100,10 +97,8 @@ def home():
     </script>
 </body>
 </html>
-
 """
     return html_content
 
 if __name__ == "__main__":
-    # Same run configuration as you had
     app.run(host="0.0.0.0", port=5000)
