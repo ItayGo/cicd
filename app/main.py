@@ -72,7 +72,7 @@ def home():
 </head>
 <body>
     <div class="logo-container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Fortinet_Shield_logo.svg/1200px-Fortinet_Shield_logo.svg.png" 
+        <img src="https://static.wixstatic.com/media/c4d23b_e491b1504ef449468acb4bca99792321~mv2.jpg/v1/fill/w_420,h_280,al_c,q_90/file.jpg" 
              alt="Fortinet Shield Logo"
              title="Fortinet CI/CD Demo">
     </div>
