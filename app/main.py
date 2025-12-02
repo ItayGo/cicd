@@ -77,7 +77,7 @@ def home():
              title="Fortinet CI/CD Demo">
     </div>
 
-    <h1 id="status-text">good enough!!</h1>
+    <h1 id="status-text">good enough!!!</h1>
 
     <script>
         // --- JAVASCRIPT ANIMATION ---
