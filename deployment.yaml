@@ -6,7 +6,8 @@ metadata:
   labels:
     app: "deployment-1"
 spec:
-  replicas: 3
+  replicas: 10
+  minReadySeconds: 60
   selector:
     matchLabels:
       app: "deployment-1"
